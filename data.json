@@ -1,0 +1,62 @@
+{
+  "items": [
+    {
+      "id": "item_1",
+      "descripcion": "Proyecto E-commerce Supabase",
+      "fields": [
+        { "type": "correo", "value": "admin@ecommerce.com" },
+        { "type": "clave", "value": "SuperSecure123!" },
+        { "type": "name", "value": "ecommerce-prod" },
+        { "type": "enlace", "value": "https://supabase.com/dashboard/project/abc123" }
+      ]
+    },
+    {
+      "id": "item_2",
+      "descripcion": "API OpenAI para ChatBot",
+      "fields": [
+        { "type": "name", "value": "chatbot-api" },
+        { "type": "clave", "value": "DEMO_sk-proj-abc123def456..." },
+        { "type": "enlace", "value": "https://platform.openai.com/api-keys" }
+      ]
+    },
+    {
+      "id": "item_3",
+      "descripcion": "Cuenta Gmail Trabajo",
+      "fields": [
+        { "type": "correo", "value": "trabajo@gmail.com" },
+        { "type": "clave", "value": "PassTrabajo123!" },
+        { "type": "enlace", "value": "https://accounts.google.com" }
+      ]
+    },
+    {
+      "id": "item_4",
+      "descripcion": "Stripe Pagos Online",
+      "fields": [
+        { "type": "name", "value": "tienda-online" },
+        { "type": "clave", "value": "DEMO_pk-live-51abc123..." },
+        { "type": "enlace", "value": "https://dashboard.stripe.com" }
+      ]
+    },
+    {
+      "id": "item_5",
+      "descripcion": "Base de Datos MongoDB",
+      "fields": [
+        { "type": "name", "value": "produccion-db" },
+        { "type": "correo", "value": "admin@mongodb.com" },
+        { "type": "clave", "value": "MongoSecure789#" },
+        { "type": "enlace", "value": "https://cloud.mongodb.com" }
+      ]
+    },
+    {
+      "id": "item_6",
+      "descripcion": "Cuenta GitHub Empresarial",
+      "fields": [
+        { "type": "correo", "value": "dev@empresa.com" },
+        { "type": "clave", "value": "DEMO_GitHubToken456$" },
+        { "type": "enlace", "value": "https://github.com/empresa" }
+      ]
+    }
+  ],
+  "timestamp": "2025-08-19T06:56:52.000Z",
+  "version": "2.0"
+}

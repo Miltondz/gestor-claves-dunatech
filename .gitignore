@@ -1,0 +1,6 @@
+# Gestor Local de Cuentas, Claves y API Keys - DunaTech
+
+# Archivos temporales
+*.tmp
+.DS_Store
+Thumbs.db

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestor Local de Cuentas, Claves y API Keys - DunaTech</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="app-title">Gestor de Cuentas y Claves</h1>
+                <div class="header-actions">
+                    <div class="search-container">
+                        <div class="search-wrapper">
+                            <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <path d="M21 21L16.65 16.65"></path>
+                            </svg>
+                            <input type="text" id="searchInput" placeholder="Buscar por descripción, correo o enlace..." class="search-input">
+                        </div>
+                    </div>
+                    <div class="action-buttons">
+                        <button id="addAccountBtn" class="btn btn-primary">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg>
+                            Nueva Cuenta
+                        </button>
+                        <button id="backupBtn" class="btn btn-secondary">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7,10 12,15 17,10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            Respaldar
+                        </button>
+                        <button id="importBtn" class="btn btn-secondary">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="17,8 12,3 7,8"></polyline>
+                                <line x1="12" y1="3" x2="12" y2="15"></line>
+                            </svg>
+                            Importar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div id="accountsGrid" class="accounts-grid">
+                <!-- Las tarjetas de cuentas se generarán dinámicamente aquí -->
+            </div>
+            <div id="noResults" class="no-results" style="display: none;">
+                <div class="no-results-content">
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="M21 21L16.65 16.65"></path>
+                    </svg>
+                    <h3>No se encontraron cuentas</h3>
+                    <p>No hay cuentas que coincidan con la búsqueda actual.</p>
+                </div>
+            </div>
+        </main>
+
+        <!-- Modal para mostrar detalles completos -->
+        <div id="detailModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="modalTitle">Detalles de la Cuenta</h2>
+                    <button id="closeModal" class="btn btn-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-body" id="modalBody">
+                    <!-- Contenido dinámico -->
+                </div>
+                <div class="modal-footer" id="modalFooter">
+                    <!-- Botones dinámicos -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Form modal para añadir/editar -->
+        <div id="formModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="formModalTitle">Nueva Cuenta</h2>
+                    <button id="closeFormModal" class="btn btn-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="accountForm" class="account-form">
+                        <div class="form-section">
+                            <label for="formDescription" class="form-label">Descripción *</label>
+                            <input type="text" id="formDescription" name="descripcion" class="form-input" placeholder="Ej: Cuenta de Google, Proyecto React, API OpenAI..." required>
+                        </div>
+                        
+                        <div class="form-section">
+                            <label class="form-label">Campos adicionales</label>
+                            <div id="dynamicFields" class="dynamic-fields">
+                                <!-- Campos dinámicos se añaden aquí -->
+                            </div>
+                            <div class="add-field-buttons">
+                                <button type="button" class="btn btn-small" onclick="addField('correo')">+ Correo</button>
+                                <button type="button" class="btn btn-small" onclick="addField('clave')">+ Clave</button>
+                                <button type="button" class="btn btn-small" onclick="addField('name')">+ Nombre</button>
+                                <button type="button" class="btn btn-small" onclick="addField('enlace')">+ Enlace</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="cancelForm" class="btn btn-secondary">Cancelar</button>
+                    <button type="submit" form="accountForm" class="btn btn-primary">Guardar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notification -->
+        <div id="notification" class="notification" aria-live="polite"></div>
+
+        <!-- Hidden file input for import -->
+        <input type="file" id="fileInput" accept=".json" style="display: none;">
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2025 DunaTech. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
