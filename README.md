@@ -1,219 +1,122 @@
-# Gestor Local de Cuentas, Claves y API Keys - DunaTech
+# Vaultly — Gestor de Credenciales (by DunaTech)
 
-[![Aplicación DunaTech](./screenshots/dunatech_gestor_claves_completo.png)](https://w7n2powvrmo0.space.minimax.io)
+[![Vaultly Screenshot](./screenshots/dunatech_gestor_claves_completo.png)](https://w7n2powvrmo0.space.minimax.io)
 
-> **Aplicación web moderna para gestionar de forma segura tus credenciales, contraseñas y API keys localmente, sin necesidad de servidores externos.**
+> **Aplicación web moderna para gestionar de forma segura tus credenciales, contraseñas y API keys localmente, sin servidores externos.**
 
-## 🌟 Características Principales
+## Características
 
-- 🔒 **100% Local**: Todos los datos se almacenan localmente en tu navegador
-- 🎨 **Diseño Moderno**: Interfaz elegante con tema oscuro y colores pastel únicos
-- 🔍 **Búsqueda Inteligente**: Encuentra rápidamente cualquier cuenta o servicio
-- 📱 **Responsive**: Funciona perfectamente en dispositivos móviles y desktop
-- 🛡️ **Seguro**: Contraseñas ocultas por defecto con opción de mostrar
-- 📤 **Backup/Restore**: Exporta e importa tus datos de forma segura
-- ⚡ **Campos Dinámicos**: Añade campos personalizados según tus necesidades
-- 🎯 **Modal de Detalles**: Vista completa al hacer click en cualquier tarjeta
+- **100% Local** — Tus datos se almacenan solo en `localStorage`. Nunca salen de tu dispositivo.
+- **Diseño Vaultly** — Interfaz oscura con sidebar, grid de tarjetas pastel, filtros por categoría, ordenamiento y modales glass.
+- **Categorías** — Personal, Trabajo, Finanzas, Social, Otro. Filtra desde la barra lateral, chips en escritorio o nav inferior en móvil.
+- **Ordenamiento** — Por nombre (A-Z, Z-A) o fecha de creación (reciente, antiguo).
+- **Búsqueda en tiempo real** — Filtra cuentas al instante con resaltado de coincidencias. Atajos de teclado: `/` o `Ctrl+K` para buscar, `Esc` para limpiar.
+- **Campos dinámicos** — Correo, contraseña, nombre, enlace. Añade tantos como necesites.
+- **Contraseñas ocultas** — Se muestran como `••••••••` por defecto. Botón para mostrar/ocultar en el modal de detalles.
+- **Copia con un clic** — Cada campo tiene su botón de copia con feedback visual.
+- **Deshacer eliminación** — Las cuentas eliminadas se recuperan durante 5 segundos vía toast inferior.
+- **Backup / Importar** — Descarga un JSON con todas tus cuentas y restáuralo después.
+- **PWA (Progressive Web App)** — Service worker que cachea los archivos para funcionar sin conexión (los assets locales; los CDNs requieren internet).
+- **Diseño responsive** — Layout adaptativo con sidebar (escritorio), top nav compacta (móvil) y nav inferior con acceso rápido a categorías.
 
-## 🚀 Demo en Vivo
+## Demo en Vivo
 
-**[👉 Ver Aplicación en Funcionamiento](https://w7n2powvrmo0.space.minimax.io)**
+**[👉 Ver Aplicación](https://w7n2powvrmo0.space.minimax.io)**
 
-## 📸 Capturas de Pantalla
+## Capturas de Pantalla
 
-### Vista Principal
-![Gestor de Claves DunaTech](./screenshots/dunatech_gestor_claves_completo.png)
+![Vaultly Screenshot](./screenshots/dunatech_gestor_claves_completo.png)
 
-*La aplicación muestra un grid compacto de tarjetas con colores pastel únicos para cada cuenta, búsqueda avanzada y botones de acción modernos.*
-
-## 🛠️ Instalación y Uso
+## Instalación y Uso
 
 ### Requisitos
-- Navegador web moderno (Chrome, Firefox, Safari, Edge)
+- Navegador web moderno (Chrome 90+, Firefox 88+, Safari 14+, Edge 90+)
 - JavaScript habilitado
 - Soporte para LocalStorage
+- **Conexión a internet en la primera carga** (Tailwind CSS, Google Fonts y Material Symbols se cargan vía CDN)
 
 ### Instalación Local
 
-1. **Clona este repositorio:**
-   ```bash
-   git clone https://github.com/Miltondz/gestor-claves-dunatech.git
-   cd gestor-claves-dunatech
-   ```
+```bash
+git clone https://github.com/Miltondz/gestor-claves-dunatech.git
+cd gestor-claves-dunatech
+```
 
-2. **Abre la aplicación:**
-   - Simplemente abre `index.html` en tu navegador
-   - O usa un servidor local:
-     ```bash
-     # Con Python
-     python -m http.server 8000
-     
-     # Con Node.js (http-server)
-     npx http-server
-     
-     # Con PHP
-     php -S localhost:8000
-     ```
+Abre con un servidor HTTP (necesario para `fetch()` de `data.json` y service worker):
 
-3. **¡Listo!** La aplicación estará funcionando localmente.
+```bash
+python -m http.server 8000
+npx http-server
+php -S localhost:8000
+```
 
-## 📁 Estructura del Proyecto
+Luego visita `http://localhost:8000`.
+
+## Estructura del Proyecto
 
 ```
 gestor-claves-dunatech/
-├── index.html          # Página principal con estructura HTML
-├── style.css           # Estilos CSS con tema oscuro y colores pastel
-├── app.js             # Lógica de la aplicación (CRUD, búsqueda, modales)
-├── data.json          # Datos de ejemplo (con prefijo DEMO_ para seguridad)
-├── screenshots/       # Capturas de pantalla de la aplicación
-└── README.md          # Este archivo
+├── index.html               # Página principal con Tailwind y layout Vaultly
+├── style.css                # Animaciones, scrollbar y pequeños overrides
+├── app.js                   # Lógica completa (CRUD, búsqueda, modales, validación)
+├── data.json                # Datos demo (prefijo DEMO_)
+├── sw.js                    # Service worker (PWA offline)
+├── manifest.webmanifest     # Manifiesto PWA
+├── icon.svg                 # Ícono de la app
+├── LICENSE                  # MIT
+├── screenshots/             # Capturas
+└── README.md                # Este archivo
 ```
 
-## 🎯 Funcionalidades Detalladas
+## Tecnologías
 
-### ➕ Gestión de Cuentas
-- **Añadir:** Botón "Nueva Cuenta" para crear entradas
-- **Editar:** Click en el icono de edición para modificar
-- **Eliminar:** Botón de eliminación con confirmación
-- **Campos Dinámicos:** Correo, Contraseña, Nombre, Enlace
+- **Tailwind CSS** vía CDN (Play CDN con plugins `forms` y `container-queries`)
+- **Google Fonts**: Inter (texto) + JetBrains Mono (datos)
+- **Material Symbols** (íconos)
+- **Vanilla JS** (ES2017+, `"use strict"`, sin dependencias JS)
 
-### 🔍 Búsqueda Avanzada
-- Búsqueda en tiempo real por cualquier campo
-- Resaltado de coincidencias en las tarjetas
-- Interfaz moderna con icono integrado
+## Dependencias Externas (CDN)
 
-### 🎨 Diseño Visual
-- **30 Colores Pastel Únicos:** Cada tarjeta tiene un color distintivo
-- **Grid Compacto:** Optimizado para mostrar más información
-- **Modal de Detalles:** Vista completa al hacer click
-- **Animaciones Suaves:** Transiciones y efectos hover
+| Recurso | URL |
+|---|---|
+| Tailwind CSS | `cdn.tailwindcss.com` |
+| Google Fonts | `fonts.googleapis.com` |
+| Material Symbols | `fonts.googleapis.com` |
 
-### 💾 Backup y Sincronización
-- **Exportar:** Descarga archivo JSON con todos tus datos
-- **Importar:** Restaura desde archivo de backup
-- **Formato Estándar:** JSON legible y portable
+Estas dependencias se cargan solo en la primera visita. Una vez cacheadas por el service worker, la app funciona sin conexión, aunque los estilos de Tailwind no se regenerarán sin red.
 
-### 🔐 Seguridad y Privacidad
+## Funcionalidades
 
-#### ⚠️ **IMPORTANTE: Datos de Ejemplo**
-Todos los datos incluidos en `data.json` son **EJEMPLOS DEMOSTRATIVOS** y están marcados con el prefijo `DEMO_`:
-- `DEMO_sk-proj-abc123def456...` - API Key de OpenAI (FALSA)
-- `DEMO_pk-live-51abc123...` - Clave de Stripe (FALSA)
-- `DEMO_GitHubToken456$` - Token de GitHub (FALSO)
+### Gestión de Cuentas
+- **Añadir** — Botón "Nueva" o tarjeta "Crear Nueva Entrada" al final del grid.
+- **Editar** — Botón de edición en cada tarjeta o desde el modal de detalles.
+- **Duplicar** — Crea una copia con "(copia)" en la descripción.
+- **Eliminar** — Eliminación suave con deshacer de 5 segundos.
 
-**🚨 Nunca uses estas claves en producción - son solo para demostración.**
+### Búsqueda y Filtros
+- **Barra de búsqueda** — Filtra por descripción o cualquier campo. Resalta coincidencias.
+- **Categorías** — Sidebar, chips en escritorio y nav inferior en móvil.
+- **Ordenamiento** — Nombre (A-Z, Z-A) o fecha de creación.
 
-#### 🛡️ Características de Seguridad
-- **Almacenamiento Local:** Tus datos nunca salen de tu dispositivo
-- **Contraseñas Ocultas:** Se muestran como `••••••••` por defecto
-- **Sin Conexión Externa:** No requiere internet una vez cargada
-- **Datos Encriptados:** LocalStorage protegido por el navegador
+### Seguridad
+- **Almacenamiento local** — Los datos nunca salen del navegador, no hay servidor.
+- **Contraseñas ocultas** — Se muestran como `••••••••` en las tarjetas y se pueden ocultar/mostrar en el modal de detalles.
+- **Validación de importes** — Los archivos JSON se validan: campos desconocidos se descartan, items mal formados se omiten.
 
-## 🖱️ Guía de Uso
+> ⚠️ **Aviso**: Los datos en `localStorage` se guardan en **texto plano**. Extensiones del navegador o scripts con acceso a la página (XSS) pueden leerlos. Para secretos de alta sensibilidad considera una solución con cifrado.
 
-### Añadir Nueva Cuenta
-1. Click en "Nueva Cuenta"
-2. Introduce descripción (obligatorio)
-3. Añade campos según necesites (Correo, Clave, Nombre, Enlace)
-4. Click "Guardar"
+## Licencia
 
-### Ver Detalles Completos
-1. Click en cualquier tarjeta
-2. Se abre modal con información completa
-3. Puedes copiar cualquier campo
-4. Opción de editar directamente
+MIT. Ver [`LICENSE`](./LICENSE).
 
-### Realizar Backup
-1. Click en "Respaldar"
-2. Se descarga archivo JSON automáticamente
-3. Guarda el archivo en lugar seguro
+## Contacto
 
-### Restaurar desde Backup
-1. Click en "Importar"
-2. Selecciona archivo JSON de backup
-3. Confirma la importación
-4. Tus datos se restauran instantáneamente
-
-## 🎨 Personalización
-
-### Colores de Tarjetas
-La aplicación asigna automáticamente uno de 30 colores pastel únicos a cada tarjeta basado en un hash del ID. Los colores incluyen:
-- Rosas, naranjas, amarillos
-- Verdes, azules, púrpuras
-- Tonos suaves y legibles
-
-### Campos Personalizados
-Puedes añadir tantos campos como necesites:
-- **Correo:** Para cuentas de email
-- **Clave:** Contraseñas y tokens (se ocultan automáticamente)
-- **Nombre:** Identificadores o nombres de usuario
-- **Enlace:** URLs de login o documentación
-
-## 🌐 Compatibilidad
-
-### Navegadores Soportados
-- ✅ Chrome 90+
-- ✅ Firefox 88+
-- ✅ Safari 14+
-- ✅ Edge 90+
-
-### APIs Utilizadas
-- **LocalStorage API:** Persistencia de datos
-- **Clipboard API:** Funciones de copiar/pegar
-- **File API:** Importar/exportar archivos
-- **CSS Grid & Flexbox:** Layout responsive
-
-## 🚨 Solución de Problemas
-
-### La aplicación no carga
-- **Verifica:** JavaScript habilitado en el navegador
-- **Solución:** Abre las herramientas de desarrollador (F12) y revisa errores
-
-### No puedo copiar al portapapeles
-- **Causa:** Clipboard API no disponible
-- **Solución:** Usa HTTPS o localhost
-
-### Los datos no se guardan
-- **Causa:** LocalStorage bloqueado o lleno
-- **Solución:** Revisa configuración de privacidad del navegador
-
-### El backup no se descarga
-- **Causa:** Pop-ups bloqueados
-- **Solución:** Permite descargas para este sitio
-
-## 🤝 Contribuciones
-
-Las contribuciones son bienvenidas. Para cambios importantes:
-
-1. Fork el repositorio
-2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abre un Pull Request
-
-## 📄 Licencia
-
-Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más detalles.
-
-## 📞 Contacto y Soporte
-
-**DunaTech** - Desarrollador: Milton  
+**DunaTech** — Desarrollador: Milton  
 **GitHub:** [@Miltondz](https://github.com/Miltondz)  
 **Proyecto:** [gestor-claves-dunatech](https://github.com/Miltondz/gestor-claves-dunatech)
 
 ---
 
-### 🏆 Características Destacadas
+**© 2025-2026 DunaTech. Todos los derechos reservados.**
 
-- 🎯 **Grid Compacto:** Diseño optimizado que muestra más información en menos espacio
-- 🌈 **30 Colores Únicos:** Cada cuenta tiene su propio color pastel distintivo
-- 🔍 **Búsqueda Moderna:** Con icono integrado y efectos visuales profesionales
-- 📱 **100% Responsive:** Perfecta experiencia en móviles, tablets y desktop
-- ⚡ **Modal Inteligente:** Vista detallada instantánea con un solo click
-- 🛡️ **Seguridad por Diseño:** Datos locales, contraseñas ocultas, sin servidores
-
----
-
-**© 2025 DunaTech. Todos los derechos reservados.**
-
-*Gestor de Claves local, seguro y moderno para profesionales y equipos.*
+*Vaultly — Gestor de credenciales local, seguro y moderno.*

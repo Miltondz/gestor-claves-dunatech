@@ -1,0 +1,20 @@
+{
+  "name": "Vaultly — Gestor de Credenciales | DunaTech",
+  "short_name": "Vaultly",
+  "description": "Vaultly de DunaTech — Gestor local de credenciales, contraseñas y API keys. 100% local en tu navegador.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#10141a",
+  "theme_color": "#161B22",
+  "lang": "es",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
