@@ -1,10 +1,10 @@
-const CACHE_NAME = 'vaultly-v2';
+const CACHE_NAME = 'vaultly-v3';
 const ASSETS = [
   './',
   './index.html',
   './style.css',
   './app.js',
-  './tailwind.js',
+  './tailwind.css',
   './data.json',
   './icon.svg',
   './manifest.webmanifest'
